@@ -16,9 +16,9 @@ user.mood = "happy";
 user.hobby = "skydiving";
 user.premium = false;
 
-const keys = Object.keys(user);
-for(const elem of keys) {
-    console.log(`key:${elem}`);
+const arrays = Object.entries(user);
+for(const elem of arrays) {
+console.log(`${elem[0]}:${elem[1]}`);
 }
 
 
@@ -51,7 +51,15 @@ const employerss = {
 }
 
 const findBestEmployee = (employees) => {
-    const bestScore = Object.values(employees);
+    const scoresAndEmployees = Object.entries(employees);
+        let bestScore = scoresAndEmployees[0];
+        for(const element of scoresAndEmployees){
+        if(bestScore < element) {
+            bestScore = element
+        }
+    }
+    return bestScore[0]
+    
 }
 console.log(findBestEmployee(employerss));
 
@@ -80,9 +88,45 @@ console.log(countTotalSalary(employers));
 // Напиши функцію getAllPropValues(arr, prop), яка отримує масив об'єктів і ім'я властивості. Повертає масив значень певної властивості prop з кожного об'єкта в масиві.
 
 const array = [
-    {}
-]
+  { name: "Anna", age: 20, gender: "female"},
+  { name: "Ivan", age: 22, gender: "male"},
+  { name: "Olena", age: 19, gender: "female"},
+  { name: "Petro", age: 21, gender: "male"},
+];
 
 const getAllPropValues = (arr, prop) => {
-
+    let newArray = [];
+        for(const element of arr) {  
+       newArray.push(element[prop])
+    }
+    return newArray
 }
+
+
+console.log(getAllPropValues(array, "age"));
+
+// Напиши функцію calculateTotalPrice(allProdcuts, productName), яка отримує масив об'єктів та ім'я продукту (значення властивості name). Повертає загальну вартість продукту (ціна * кількість).
+// Викличи функції для перевірки працездатності твоєї реалізації.
+
+const productsPrice = [
+    {name:"dress", price:1200, quantity:3},
+    {name:"shorts", price:700, quantity:2},
+    {name:"jeans", price:1000, quantity:5},
+    {name:"shoes", price:2000, quantity:2},
+];
+
+const calculateTotalPrice = (allProdcuts, productName) => {
+        let totalPrice = 0;
+        let eachProduct = "";
+        let price = [];
+    for(const element of allProdcuts) {
+        const totalOfEveryProduct = Object.values(element);
+        totalPrice = totalOfEveryProduct[1]*totalOfEveryProduct[2];
+        eachProduct = element[productName]
+        console.log(`${eachProduct}:${totalPrice}`);
+        price.push(`${eachProduct}:${totalPrice}`)
+    }
+    return price
+}
+
+console.log(calculateTotalPrice(productsPrice, "name"));
